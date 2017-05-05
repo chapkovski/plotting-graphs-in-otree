@@ -1,0 +1,41 @@
+from otree.api import (
+    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
+    Currency as c, currency_range
+)
+import random
+import json
+from django import forms
+
+author = 'Filipp Chapkovskii, Univesity of Zurich'
+
+doc = """
+an example of dynamic graphing of network data in oTree
+"""
+
+
+class Constants(BaseConstants):
+    name_in_url = 'networx'
+    players_per_group = None
+    num_rounds = 1
+    names = ['Roseanne',
+             'Trudie',
+             'Melodee',
+             'Sophie',
+             'Nam',
+             'Keturah',
+             'Etha',
+             'Ike',
+             'Piedad',
+             'Nancy',
+             ]
+
+class Subsession(BaseSubsession):
+    ...
+
+class Group(BaseGroup):
+    pass
+
+
+
+class Player(BasePlayer):
+    network_data = models.TextField()
