@@ -6,7 +6,7 @@ import random
 import json
 from django import forms
 
-author = 'Filipp Chapkovskii, Univesity of Zurich'
+author = 'Philipp Chapkovski, chapkovski@gmail.com'
 
 doc = """
 an example of dynamic graphing of network data in oTree
