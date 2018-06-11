@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Check the names of your friends in this list
+{% endblock %}
+
+{% block content %}
+
+
+
+    {% for f in form %}
+        {% formfield f %}
+    {% endfor %}
+
+
+    {% next_button %}
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}

@@ -6,3 +6,5 @@ staticfiles
 *~
 *.sqlite3
 _coverage_results/
+/__temp_migrations/
+/networx/migrations/

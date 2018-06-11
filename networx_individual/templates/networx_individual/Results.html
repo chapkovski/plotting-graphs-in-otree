@@ -26,23 +26,13 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.1.0/cytoscape.js"></script>
     <script>
-        var jsonnet = JSON.parse('{{group.network_data|safe}}');
-        console.log(jsonnet);
+        var jsonnet = JSON.parse('{{player.network_data|safe}}');
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'),
 
         });
         cy.json(jsonnet);
-        var layout = cy.layout({name: 'cose'});
 
-        layout.run();
-        cy.style()
-            .selector('edge')
-            .style('line-color', 'magenta')
-            .style("target-arrow-shape", "triangle")
-            .style("curve-style", 'bezier')
-            .update() // update the elements in the graph with the new style
-        ;
     </script>
 
 
