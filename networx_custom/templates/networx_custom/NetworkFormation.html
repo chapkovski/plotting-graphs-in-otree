@@ -1,0 +1,41 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Check the names of your friends in this list
+{% endblock %}
+
+{% block content %}
+
+
+    {% if formset.non_form_errors %}
+        {% for error in formset.non_form_errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    {{ formset.management_form }}
+    {% for form in formset.forms %}
+        <label for="{{ form.edge.id_for_label }}">{{ form.instance.target.name }}
+            {% formfield form.edge label='' %}
+        </label>
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+
+
+    {% endfor %}
+    {% next_button %}
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}

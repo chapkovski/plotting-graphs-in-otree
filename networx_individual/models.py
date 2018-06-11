@@ -2,9 +2,7 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
-import random
-import json
-from django import forms
+
 
 author = 'Philipp Chapkovski, chapkovski@gmail.com'
 

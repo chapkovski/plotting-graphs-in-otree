@@ -1,0 +1,62 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Resulting network
+{% endblock %}
+
+{% block content %}
+    <div id="cy"></div>
+    <div class="container ">
+        <div class="row">
+
+
+        </div>
+    </div>
+
+
+    {% next_button %}
+{% endblock %}
+
+
+
+
+{% block scripts %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.1.0/cytoscape.js"></script>
+    <script>
+        var jsonnet = JSON.parse('{{group.network_data|safe}}');
+        console.log(jsonnet);
+        var cy = window.cy = cytoscape({
+            container: document.getElementById('cy'),
+
+        });
+        cy.json(jsonnet);
+        var layout = cy.layout({name: 'cose'});
+
+        layout.run();
+        cy.style()
+            .selector('edge')
+            .style('line-color', 'magenta')
+            .style("target-arrow-shape", "triangle")
+            .style("curve-style", 'bezier')
+            .update() // update the elements in the graph with the new style
+        ;
+        cy.userZoomingEnabled(false);
+        cy.autoungrabify(true);
+    </script>
+
+
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+        #cy {
+            width: 100%;
+            height: 600px;
+            display: block;
+        }
+    </style>
+
+{% endblock %}

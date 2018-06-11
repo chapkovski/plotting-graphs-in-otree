@@ -4,7 +4,6 @@ from otree.api import (
 )
 import random
 import json
-from django import forms
 
 author = 'Philipp Chapkovski, chapkovski@gmail.com'
 
