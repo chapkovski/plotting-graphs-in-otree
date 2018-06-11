@@ -33,7 +33,16 @@
 
         });
         cy.json(jsonnet);
+        var layout = cy.layout({name: 'cose'});
 
+        layout.run();
+        cy.style()
+            .selector('edge')
+            .style('line-color', 'magenta')
+            .style("target-arrow-shape", "triangle")
+            .style("curve-style", 'bezier')
+            .update() // update the elements in the graph with the new style
+        ;
     </script>
 
 

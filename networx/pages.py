@@ -23,7 +23,8 @@ class BeforeResultsWP(WaitPage):
 
 
 class Results(Page):
-    ...
+    def vars_for_template(self):
+        self.group.forming_network()
 
 
 page_sequence = [

@@ -36,13 +36,17 @@ class Group(BaseGroup):
     network_data = models.LongStringField()
 
     def forming_network(self):
-        nodes = [{'data': {'id': i}} for i in Constants.names]
+        nodes = [{'data': {'id': i, 'name': i}, 'group': 'nodes'} for i in Constants.names]
         edges = []
         for p in self.get_players():
             friends = json.loads(p.friends)
-            edges.extend([{'data': {'id': p.name + i, 'source': p.name, 'target': i}} for i in friends])
-        self.network_data = json.dumps(nodes + edges)
-
+            edges.extend(
+                [{'data': {'id': p.name + i, 'source': p.name, 'target': i}, 'group': 'edges'} for i in friends])
+        elements = nodes + edges
+        style = [{'selector': 'node', 'style': {'content': 'data(name)'}}]
+        self.network_data = json.dumps({'elements': elements,
+                                        'style': style,
+                                             })
 
 
 class Player(BasePlayer):
