@@ -15,6 +15,12 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
+        'name': 'networx_individual',
+        'display_name': "Network - for single player",
+        'num_demo_participants': 1,
+        'app_sequence': ['networx_individual'],
+    },
+    {
         'name': 'networx',
         'display_name': "Network - for three players",
         'num_demo_participants': 3,

@@ -1,0 +1,136 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Building network
+{% endblock %}
+
+{% block content %}
+<div id="cy"></div>
+
+<table class="table table-hover table-striped table-responsive table-bordered">
+  <colgroup>
+    <col class="col-md-1">
+    {% for name in Constants.names %}
+    <col class="col-md-1">
+    {% endfor %}
+
+ </colgroup>
+  <thead>
+    <tr>
+      <th></th>
+      {% for name in Constants.names %}
+      <th  >{{name}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+<tbody>
+  {% for source in Constants.names %}
+    <tr><th>{{source}}</th>
+    {% for target in Constants.names %}
+      <td>
+      {% if target != source %}
+        <div class="checkbox">
+        <label><input type="checkbox" value="" class = 'networkcheckbox'
+          source='{{source}}' target='{{target}}'></label>
+        </div>
+      {% endif %}
+      </td>
+    {% endfor %}
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+<input type="hidden" name="network_data"
+    value="5" id="id_network_data"/>
+{% next_button %}
+{% endblock %}
+
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.1.0/cytoscape.js"></script>
+
+<script>
+var cy = window.cy = cytoscape({
+  container: document.getElementById('cy'),
+
+  userZoomingEnabled:false,
+  layout: {
+    name: 'random',
+    randomize: true,
+    directed: true,
+    circle: true,
+    padding: 10
+  },
+
+  style: [
+    {
+      selector: 'node',
+      style: {
+        'content': 'data(name)',
+        'border-width': 3,
+     'border-color': '#333',
+     'background-color':'#FAFAD2',
+      }
+    },
+
+    {
+      selector: 'edge',
+      style: {
+        'curve-style': 'bezier',
+          'target-arrow-shape': 'triangle',
+          'target-arrow-color': '#0000CD',
+          'line-color': '#87CEFA',
+          'width': 4
+      }
+    }
+  ],
+
+  elements: {
+     nodes: [
+       {% for name in Constants.names %}
+    { data: { id: '{{name}}', name: '{{name}}'} },
+       {% endfor %}
+
+     ],
+     edges: [
+     ]
+   },
+});
+// cy.
+// end of cytoscape
+$( "#form" ).submit(function( event ) {
+  $('#id_network_data').val(JSON.stringify(cy.json()));
+});
+
+$("input.networkcheckbox").change(function() {
+  var source = $(this).attr("source");
+  var target = $(this).attr("target");
+if(this.checked) {
+    cy.add({
+    group: "edges",
+          data: { source: source, target: target, faveColor: '#86B342', strength: 100,
+          id: source+'_' + target },
+    });
+
+}
+else {
+cy.$("#"+source+'_' + target).remove();
+    }
+});
+  </script>
+
+
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+#cy {
+  width: 100%;
+  height: 300px;
+  display: block;
+}
+
+</style>
+
+{% endblock %}

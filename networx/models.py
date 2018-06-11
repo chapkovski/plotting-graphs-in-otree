@@ -25,6 +25,9 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def creating_session(self):
+        num_players_err = 'Too many participants for such a short name list'
+        # the following may create issues with mTurk sessions where num participants is doubled
+        assert len(Constants.names) <= self.session.num_participants, num_players_err
         for g in self.get_groups():
             cur_names = Constants.names.copy()
             random.shuffle(cur_names)
@@ -46,7 +49,7 @@ class Group(BaseGroup):
         style = [{'selector': 'node', 'style': {'content': 'data(name)'}}]
         self.network_data = json.dumps({'elements': elements,
                                         'style': style,
-                                             })
+                                        })
 
 
 class Player(BasePlayer):
