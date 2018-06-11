@@ -38,4 +38,4 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    network_data = models.TextField()
+    network_data = models.LongStringField()
