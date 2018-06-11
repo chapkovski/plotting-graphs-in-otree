@@ -7,15 +7,22 @@ from collections import OrderedDict
 import json
 
 
-class Introduction(Page):
-    form_model = 'player'
-    form_fields = ['network_data']
+class NetworkFormation(Page):
+    form_model =   'player'
+    form_fields = ['friends']
+
+
+class BeforeResultsWP(WaitPage):
+    def after_all_players_arrive(self):
+        self.group.forming_network()
+
 
 class Results(Page):
     ...
 
 
 page_sequence = [
-    Introduction,
-    Results,
+    NetworkFormation,
+    BeforeResultsWP,
+    # Results,
 ]

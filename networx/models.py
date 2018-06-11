@@ -15,27 +15,29 @@ an example of dynamic graphing of network data in oTree
 
 class Constants(BaseConstants):
     name_in_url = 'networx'
-    players_per_group = None
+    players_per_group = 3
     num_rounds = 1
     names = ['Roseanne',
              'Trudie',
              'Melodee',
-             'Sophie',
-             'Nam',
-             'Keturah',
-             'Etha',
-             'Ike',
-             'Piedad',
-             'Nancy',
              ]
 
 class Subsession(BaseSubsession):
-    ...
+    def creating_session(self):
+        for g in self.get_groups():
+            cur_names = Constants.names.copy()
+            random.shuffle(cur_names)
+            for i,p in enumerate(g.get_players()):
+                p.name = cur_names[i]
+
 
 class Group(BaseGroup):
-    pass
+    network_data = models.LongStringField()
+    def forming_network(self):
+        ...
 
 
 
 class Player(BasePlayer):
-    network_data = models.LongStringField()
+    name = models.StringField()
+    friends  = models.LongStringField()
