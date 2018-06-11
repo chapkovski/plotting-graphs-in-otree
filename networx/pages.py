@@ -8,8 +8,13 @@ import json
 
 
 class NetworkFormation(Page):
-    form_model =   'player'
-    form_fields = ['friends']
+    form_model = 'player'
+    def get_form_fields(self):
+        return [i.name for i in self.player.get_others_in_group()]
+
+
+    def before_next_page(self):
+        self.player.friends = json.dumps([i.name for i in self.player.get_others_in_group() if getattr(self.player, i.name)])
 
 
 class BeforeResultsWP(WaitPage):
@@ -24,5 +29,5 @@ class Results(Page):
 page_sequence = [
     NetworkFormation,
     BeforeResultsWP,
-    # Results,
+    Results,
 ]

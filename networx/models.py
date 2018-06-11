@@ -22,22 +22,33 @@ class Constants(BaseConstants):
              'Melodee',
              ]
 
+
 class Subsession(BaseSubsession):
     def creating_session(self):
         for g in self.get_groups():
             cur_names = Constants.names.copy()
             random.shuffle(cur_names)
-            for i,p in enumerate(g.get_players()):
+            for i, p in enumerate(g.get_players()):
                 p.name = cur_names[i]
 
 
 class Group(BaseGroup):
     network_data = models.LongStringField()
+
     def forming_network(self):
-        ...
+        nodes = [{'data': {'id': i}} for i in Constants.names]
+        edges = []
+        for p in self.get_players():
+            friends = json.loads(p.friends)
+            edges.extend([{'data': {'id': p.name + i, 'source': p.name, 'target': i}} for i in friends])
+        self.network_data = json.dumps(nodes + edges)
 
 
 
 class Player(BasePlayer):
     name = models.StringField()
-    friends  = models.LongStringField()
+    friends = models.LongStringField()
+
+
+for i in Constants.names:
+    Player.add_to_class(i, models.BooleanField(widget=widgets.CheckboxInput, blank=True))

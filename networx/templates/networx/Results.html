@@ -26,7 +26,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.1.0/cytoscape.js"></script>
     <script>
-        var jsonnet = JSON.parse('{{player.network_data|safe}}');
+        var jsonnet = JSON.parse('{{group.network_data|safe}}');
+        console.log(jsonnet);
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'),
 
