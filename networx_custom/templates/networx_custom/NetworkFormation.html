@@ -19,9 +19,12 @@
 
     {{ formset.management_form }}
     {% for form in formset.forms %}
-        <label for="{{ form.edge.id_for_label }}">{{ form.instance.target.name }}
-            {% formfield form.edge label='' %}
-        </label>
+        <div class="form-check">
+            <label for="{{ form.edge.id_for_label }}">{{ form.edge }}
+                {{ form.instance.target.name }}
+
+            </label>
+        </div>
         {% for hidden in form.hidden_fields %}
             {{ hidden }}
         {% endfor %}
