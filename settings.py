@@ -12,9 +12,7 @@ SESSION_CONFIG_DEFAULTS = {
     'participation_fee': 0.00,
     'doc': "",
 }
-with open('networx_custom/names.txt') as f:
-    names = f.read().splitlines()
-num_custom_participants = len(names)
+
 SESSION_CONFIGS = [
     {
         'name': 'networx_individual',
@@ -31,7 +29,7 @@ SESSION_CONFIGS = [
     {
         'name': 'networx_custom',
         'display_name': "Network - for three players, scalable, using custom models",
-        'num_demo_participants': num_custom_participants,
+        'num_demo_participants': 4,
         'app_sequence': ['networx_custom'],
     },
 ]

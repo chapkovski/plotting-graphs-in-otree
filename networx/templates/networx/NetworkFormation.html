@@ -2,12 +2,17 @@
 {% load otree static %}
 
 {% block title %}
-    Check the names of your friends in this list
+
 {% endblock %}
 
 {% block content %}
 
-
+    <div class="card">
+        <div class="card-body text-center text-danger">
+            <h3>Hello, <strong>{{ player.name }}</strong>!</h3>
+        </div>
+    </div>
+    <h5>Please, check the names of your friends in this list:</h5>
 
     {% for f in form %}
         {% formfield f %}
